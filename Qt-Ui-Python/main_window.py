@@ -26,17 +26,17 @@ class Ui_MainWindow(object):
         font.setPointSize(30)
         self.stackedWidget.setFont(font)
         self.stackedWidget.setObjectName("stackedWidget")
-        self.main_menu = QtWidgets.QWidget()
+        self.main_menu = QtWidgets.QWidget(self.stackedWidget)
         self.main_menu.setObjectName("main_menu")
         self.verticalLayout_2 = QtWidgets.QVBoxLayout(self.main_menu)
         self.verticalLayout_2.setObjectName("verticalLayout_2")
         self.title = QtWidgets.QLabel(self.main_menu)
         font = QtGui.QFont()
         font.setPointSize(50)
-        font.setBold(False)
         font.setUnderline(True)
         font.setWeight(50)
         self.title.setFont(font)
+        self.title.setStyleSheet("background-color: rgb(0, 0, 0);\ncolor: rgb(255, 255, 255);")
         self.title.setAlignment(QtCore.Qt.AlignCenter)
         self.title.setObjectName("title")
         self.verticalLayout_2.addWidget(self.title)
@@ -87,16 +87,16 @@ class Ui_MainWindow(object):
     def text_editor_push_button_clicked(self):
         self.stackedWidget.setCurrentIndex(1)
 
-
-def main():
-    import sys
-    app = QtWidgets.QApplication(sys.argv)
-    main_window = QtWidgets.QMainWindow()
-    ui_main_window = Ui_MainWindow()
-    ui_main_window.setupUi(main_window)
-    main_window.show()
-    sys.exit(app.exec_())
+    @staticmethod
+    def main():
+        import sys
+        app = QtWidgets.QApplication(sys.argv)
+        main_window = QtWidgets.QMainWindow()
+        ui_main_window = Ui_MainWindow()
+        ui_main_window.setupUi(main_window)
+        main_window.show()
+        sys.exit(app.exec_())
 
 
 if __name__ == '__main__':
-    main()
+    Ui_MainWindow.main()
