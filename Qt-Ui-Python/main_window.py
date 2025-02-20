@@ -9,6 +9,7 @@
 
 
 from PyQt5 import QtCore, QtGui, QtWidgets
+from text_edit import Ui_text_editor
 
 
 class Ui_MainWindow(object):
@@ -59,6 +60,8 @@ class Ui_MainWindow(object):
         self.stackedWidget.addWidget(self.main_menu)
         self.text_editor = QtWidgets.QWidget()
         self.text_editor.setObjectName("text_editor")
+        ui_text_editor = Ui_text_editor()
+        ui_text_editor.setupUi(self.text_editor)
         self.stackedWidget.addWidget(self.text_editor)
         self.horizontalLayout.addWidget(self.stackedWidget)
         MainWindow.setCentralWidget(self.centralwidget)
