@@ -15,13 +15,14 @@ class Ui_text_editor(object):
     def setupUi(self, text_editor):
         text_editor.setObjectName("text_editor")
         text_editor.resize(2200, 1600)
+        QtGui.QFontDatabase.addApplicationFont("../Fonts/TruenoUltBlkIt.otf")
         font = QtGui.QFont()
-        font.setFamily("STHupo")
+        font.setFamily("Trueno")
         font.setPointSize(24)
         text_editor.setFont(font)
         self.top_layout = QtWidgets.QVBoxLayout(text_editor)
         self.top_layout.setObjectName("top_layout")
-        spacerItem = QtWidgets.QSpacerItem(20, 350, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Minimum)
+        spacerItem = QtWidgets.QSpacerItem(20, 220, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Minimum)
         self.top_layout.addItem(spacerItem)
         self.title = QtWidgets.QLabel(text_editor)
         self.title.setMinimumSize(QtCore.QSize(0, 150))
@@ -55,8 +56,8 @@ class Ui_text_editor(object):
         sizePolicy.setVerticalStretch(0)
         sizePolicy.setHeightForWidth(self.input_line_edit.sizePolicy().hasHeightForWidth())
         self.input_line_edit.setSizePolicy(sizePolicy)
-        self.input_line_edit.setMinimumSize(QtCore.QSize(750, 75))
-        self.input_line_edit.setMaximumSize(QtCore.QSize(750, 75))
+        self.input_line_edit.setMinimumSize(QtCore.QSize(1000, 75))
+        self.input_line_edit.setMaximumSize(QtCore.QSize(1000, 75))
         self.input_line_edit.setObjectName("input_line_edit")
         self.horizontalLayout.addWidget(self.input_line_edit)
         spacerItem4 = QtWidgets.QSpacerItem(277, 20, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
@@ -70,18 +71,18 @@ class Ui_text_editor(object):
         self.horizontalLayout_2.setObjectName("horizontalLayout_2")
         spacerItem7 = QtWidgets.QSpacerItem(277, 20, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
         self.horizontalLayout_2.addItem(spacerItem7)
-        
+
         self.output_label = QtWidgets.QLabel(self.output_top_frame)
         sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Fixed)
         sizePolicy.setHorizontalStretch(0)
         sizePolicy.setVerticalStretch(0)
         sizePolicy.setHeightForWidth(self.output_label.sizePolicy().hasHeightForWidth())
         self.output_label.setSizePolicy(sizePolicy)
-        self.output_label.setMinimumSize(QtCore.QSize(750, 75))
-        self.output_label.setMaximumSize(QtCore.QSize(750, 75))
+        self.output_label.setMinimumSize(QtCore.QSize(1000, 75))
+        self.output_label.setMaximumSize(QtCore.QSize(1000, 75))
         self.output_label.setObjectName("output_label")
         self.horizontalLayout_2.addWidget(self.output_label)
-        
+
         spacerItem8 = QtWidgets.QSpacerItem(277, 20, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
         self.horizontalLayout_2.addItem(spacerItem8)
         self.verticalLayout_3.addWidget(self.output_top_frame)
@@ -99,8 +100,8 @@ class Ui_text_editor(object):
         sizePolicy.setVerticalStretch(0)
         sizePolicy.setHeightForWidth(self.output_text_line_edit.sizePolicy().hasHeightForWidth())
         self.output_text_line_edit.setSizePolicy(sizePolicy)
-        self.output_text_line_edit.setMinimumSize(QtCore.QSize(750, 75))
-        self.output_text_line_edit.setMaximumSize(QtCore.QSize(750, 75))
+        self.output_text_line_edit.setMinimumSize(QtCore.QSize(1000, 75))
+        self.output_text_line_edit.setMaximumSize(QtCore.QSize(1000, 75))
         self.output_text_line_edit.setObjectName("output_text_line_edit")
         self.horizontalLayout_2.addWidget(self.output_text_line_edit)
         spacerItem8 = QtWidgets.QSpacerItem(277, 20, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
@@ -133,8 +134,7 @@ class Ui_text_editor(object):
         sizePolicy.setHeightForWidth(self.current_color_label.sizePolicy().hasHeightForWidth())
         self.current_color_label.setSizePolicy(sizePolicy)
         self.current_color_label.setMinimumSize(QtCore.QSize(0, 80))
-        self.current_color_label.setStyleSheet("background-color: rgb(255, 0, 0);")
-        self.current_color_label.setAlignment(QtCore.Qt.AlignCenter)
+        self.current_color_label.setStyleSheet("background-color: rgb(0, 0, 0);")
         self.current_color_label.setObjectName("current_color_label")
         self.verticalLayout_2.addWidget(self.current_color_label)
         self.red_slider_top_frame = QtWidgets.QFrame(self.color_picker)
@@ -149,7 +149,6 @@ class Ui_text_editor(object):
         self.red_slider.setMaximum(15)
         self.red_slider.setOrientation(QtCore.Qt.Horizontal)
         self.red_slider.setInvertedAppearance(False)
-        self.red_slider.setInvertedControls(True)
         self.red_slider.setObjectName("red_slider")
         self.horizontalLayout_4.addWidget(self.red_slider)
         self.red_line_edit = QtWidgets.QLineEdit(self.red_slider_top_frame)
@@ -218,16 +217,67 @@ class Ui_text_editor(object):
         self.retranslateUi(text_editor)
         QtCore.QMetaObject.connectSlotsByName(text_editor)
 
+        self.connect_actions()
+
     def retranslateUi(self, text_editor):
         _translate = QtCore.QCoreApplication.translate
         text_editor.setWindowTitle(_translate("text_editor", "Form"))
         self.title.setText(_translate("text_editor", "Text Editor"))
         self.output_label.setText(_translate("text_editor", "< Output test >"))
-        self.current_color_label.setText(_translate("text_editor", "Current Color"))
+        self.red_line_edit.setText(_translate("text_editor", "0"))
+        self.green_line_edit.setText(_translate("text_editor", "0"))
+        self.blue_line_edit.setText(_translate("text_editor", "0"))
 
+    def connect_actions(self):
+        self.red_line_edit.textChanged.connect(lambda: self.set_color_slider("red"))
+        self.green_line_edit.textChanged.connect(lambda: self.set_color_slider("green"))
+        self.blue_line_edit.textChanged.connect(lambda: self.set_color_slider("blue"))
+
+        self.red_slider.valueChanged.connect(lambda: self.set_color_line_edit("red"))
+        self.green_slider.valueChanged.connect(lambda: self.set_color_line_edit("green"))
+        self.blue_slider.valueChanged.connect(lambda: self.set_color_line_edit("blue"))
+
+    def set_color_line_edit(self, color: str):
+        match color:
+            case "red":
+                num_red: str = str(self.red_slider.sliderPosition())
+                self.red_line_edit.setText(num_red)
+
+            case "green":
+                num_green: str = str(self.green_slider.sliderPosition())
+                self.green_line_edit.setText(num_green)
+
+            case "blue":
+                num_blue: str = str(self.blue_slider.sliderPosition())
+                self.blue_line_edit.setText(num_blue)
+            case _:
+                return None
+
+        self.set_color_display()
+
+    def set_color_display(self):
+        red = int(self.red_line_edit.text()) * 16
+        green = int(self.green_line_edit.text()) * 16
+        blue = int(self.blue_line_edit.text()) * 16
+
+        self.current_color_label.setStyleSheet(f"background-color: rgb({red}, {green}, {blue});")
+
+    def set_color_slider(self, color: str):
+        match color:
+            case "red":
+                num_red: int = int(self.red_line_edit.text())
+                self.red_slider.setSliderPosition(num_red)
+
+            case "green":
+                num_green: int = int(self.green_line_edit.text())
+                self.green_slider.setSliderPosition(num_green)
+
+            case "blue":
+                num_blue: int = int(self.blue_line_edit.text())
+                self.blue_slider.setSliderPosition(num_blue)
 
     @staticmethod
-    def main():
+    def _main():
         import sys
         app = QtWidgets.QApplication(sys.argv)
         text_edit = QtWidgets.QWidget()
@@ -238,12 +288,10 @@ class Ui_text_editor(object):
 
 
 if __name__ == '__main__':
-    Ui_text_editor.main()
-# TODO: Find font for output_label to be like TM Font
+    Ui_text_editor._main()
+
 # TODO: Add Button to apply current change
-
-# TODO: Connect sliders with line edits
-# TODO: Connect Hex color to current color
-
+# TODO: Give Preview
+# TODO: Give correct output
 
 # TODO: Stupid Formating....
