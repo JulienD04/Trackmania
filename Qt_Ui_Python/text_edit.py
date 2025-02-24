@@ -9,17 +9,35 @@
 
 
 from PyQt5 import QtCore, QtGui, QtWidgets
+import sys
+sys.path.append("./Fonts/TruenoUltBlkIt.otf")
+
+if __name__ == "text_edit":
+    sys.path.append("./Classes")
+    from class_TMString import TMString
+else:
+    sys.path.append("../Classes")
+    from class_TMString import TMString
 
 
 class Ui_text_editor(object):
     def setupUi(self, text_editor):
         text_editor.setObjectName("text_editor")
         text_editor.resize(2200, 1600)
-        QtGui.QFontDatabase.addApplicationFont("../Fonts/TruenoUltBlkIt.otf")
+        QtGui.QFontDatabase.addApplicationFont("./Fonts/TruenoUltBlkIt.otf")
         font = QtGui.QFont()
         font.setFamily("Trueno")
         font.setPointSize(24)
         text_editor.setFont(font)
+        self.menu_bar = QtWidgets.QMenuBar(text_editor)
+        self.menu_bar.setGeometry(QtCore.QRect(0, 0, 0, 0))
+        self.menu_bar.setObjectName("menu_bar")
+        self.menu_shortcut = QtWidgets.QMenu(self.menu_bar)
+        self.menu_shortcut.setObjectName("menu_shortcut")
+        self.apply_change_action = QtWidgets.QAction(text_editor)
+        self.apply_change_action.setObjectName("apply_change_action")
+        self.menu_shortcut.addAction(self.apply_change_action)
+        self.menu_bar.addAction(self.menu_shortcut.menuAction())
         self.top_layout = QtWidgets.QVBoxLayout(text_editor)
         self.top_layout.setObjectName("top_layout")
         spacerItem = QtWidgets.QSpacerItem(20, 220, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Minimum)
@@ -42,15 +60,34 @@ class Ui_text_editor(object):
         self.top_frame.setObjectName("top_frame")
         self.verticalLayout_3 = QtWidgets.QVBoxLayout(self.top_frame)
         self.verticalLayout_3.setObjectName("verticalLayout_3")
-        self.input_line_edit_top_frame = QtWidgets.QFrame(self.top_frame)
-        self.input_line_edit_top_frame.setFrameShape(QtWidgets.QFrame.StyledPanel)
-        self.input_line_edit_top_frame.setFrameShadow(QtWidgets.QFrame.Raised)
-        self.input_line_edit_top_frame.setObjectName("input_line_edit_top_frame")
-        self.horizontalLayout = QtWidgets.QHBoxLayout(self.input_line_edit_top_frame)
+
+        self.apply_change_frame = QtWidgets.QFrame(self.top_frame)
+        self.apply_change_frame.setFrameShape(QtWidgets.QFrame.StyledPanel)
+        self.apply_change_frame.setFrameShadow(QtWidgets.QFrame.Raised)
+        self.apply_change_frame.setObjectName("apply_change_frame")
+        self.horizontalLayout = QtWidgets.QHBoxLayout(self.apply_change_frame)
         self.horizontalLayout.setObjectName("horizontalLayout")
         spacerItem3 = QtWidgets.QSpacerItem(250, 20, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
         self.horizontalLayout.addItem(spacerItem3)
-        self.input_line_edit = QtWidgets.QLineEdit(self.input_line_edit_top_frame)
+        self.apply_change_push_button = QtWidgets.QPushButton(self.top_frame)
+        self.apply_change_push_button.setMinimumSize(QtCore.QSize(500, 80))
+        font = QtGui.QFont()
+        font.setPointSize(20)
+        self.apply_change_push_button.setFont(font)
+        self.horizontalLayout.addWidget(self.apply_change_push_button)
+        spacerItem4 = QtWidgets.QSpacerItem(277, 20, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
+        self.horizontalLayout.addItem(spacerItem4)
+        self.verticalLayout_3.addWidget(self.apply_change_frame)
+
+        self.input_line_edit_frame = QtWidgets.QFrame(self.top_frame)
+        self.input_line_edit_frame.setFrameShape(QtWidgets.QFrame.StyledPanel)
+        self.input_line_edit_frame.setFrameShadow(QtWidgets.QFrame.Raised)
+        self.input_line_edit_frame.setObjectName("input_line_edit_frame")
+        self.horizontalLayout = QtWidgets.QHBoxLayout(self.input_line_edit_frame)
+        self.horizontalLayout.setObjectName("horizontalLayout")
+        spacerItem3 = QtWidgets.QSpacerItem(250, 20, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
+        self.horizontalLayout.addItem(spacerItem3)
+        self.input_line_edit = QtWidgets.QLineEdit(self.input_line_edit_frame)
         sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Fixed)
         sizePolicy.setHorizontalStretch(0)
         sizePolicy.setVerticalStretch(0)
@@ -60,9 +97,10 @@ class Ui_text_editor(object):
         self.input_line_edit.setMaximumSize(QtCore.QSize(1000, 75))
         self.input_line_edit.setObjectName("input_line_edit")
         self.horizontalLayout.addWidget(self.input_line_edit)
+        self.tm_text: TMString = TMString("")
         spacerItem4 = QtWidgets.QSpacerItem(277, 20, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
         self.horizontalLayout.addItem(spacerItem4)
-        self.verticalLayout_3.addWidget(self.input_line_edit_top_frame)
+        self.verticalLayout_3.addWidget(self.input_line_edit_frame)
         self.output_top_frame = QtWidgets.QFrame(self.top_frame)
         self.output_top_frame.setFrameShape(QtWidgets.QFrame.StyledPanel)
         self.output_top_frame.setFrameShadow(QtWidgets.QFrame.Raised)
@@ -222,20 +260,87 @@ class Ui_text_editor(object):
     def retranslateUi(self, text_editor):
         _translate = QtCore.QCoreApplication.translate
         text_editor.setWindowTitle(_translate("text_editor", "Form"))
+
+        self.menu_shortcut.setTitle(_translate("text_editor", "Shortcut"))
+
         self.title.setText(_translate("text_editor", "Text Editor"))
+        self.apply_change_push_button.setText(_translate("text_editor", "Apply Change"))
+        self.apply_change_action.setShortcut(_translate("text_editor", "Ctrl+S"))
         self.output_label.setText(_translate("text_editor", "< Output test >"))
         self.red_line_edit.setText(_translate("text_editor", "0"))
         self.green_line_edit.setText(_translate("text_editor", "0"))
         self.blue_line_edit.setText(_translate("text_editor", "0"))
 
     def connect_actions(self):
-        self.red_line_edit.textChanged.connect(lambda: self.set_color_slider("red"))
-        self.green_line_edit.textChanged.connect(lambda: self.set_color_slider("green"))
-        self.blue_line_edit.textChanged.connect(lambda: self.set_color_slider("blue"))
+        self.apply_change_push_button.clicked.connect(self.apply_change_push_button_clicked)
+        self.apply_change_action.triggered.connect(self.apply_change_push_button_clicked)
+        self.last_input_text = ""
+        self.input_line_edit.textEdited.connect(self.input_edited)
+
+        self.red_line_edit.textEdited.connect(lambda: self.set_color_slider("red"))
+        self.green_line_edit.textEdited.connect(lambda: self.set_color_slider("green"))
+        self.blue_line_edit.textEdited.connect(lambda: self.set_color_slider("blue"))
 
         self.red_slider.valueChanged.connect(lambda: self.set_color_line_edit("red"))
         self.green_slider.valueChanged.connect(lambda: self.set_color_line_edit("green"))
         self.blue_slider.valueChanged.connect(lambda: self.set_color_line_edit("blue"))
+
+    def input_edited(self):
+        new_input_text = self.input_line_edit.text()
+        new_len = len(new_input_text)
+        old_len = len(self.last_input_text)
+        if new_len > old_len:
+            if old_len == 0 and new_len == 1:
+                self.tm_text.append_character(new_input_text)
+            else:
+                for index in range(new_len):
+                    new_character = new_input_text[index]
+                    old_character = self.last_input_text[index]
+                    if new_character != old_character:
+                        self.tm_text.insert_character(index, new_character)
+                        break
+                    elif index == old_len - 1:
+                        self.tm_text.append_character(new_input_text[-1])
+                        break
+
+        elif new_len < old_len:
+            for index in range(old_len):
+                new_character = new_input_text[index]
+                old_character = self.last_input_text[index]
+                if new_character != old_character:
+                    del self.tm_text.string_info[index]
+                    break
+                elif index == new_len - 1:
+                    del self.tm_text.string_info[index + 1]
+                    break
+
+        self.last_input_text = new_input_text
+        self.tm_text.reset_output()
+        self.reset_output()
+
+    def reset_output(self):
+        self.output_text_line_edit.setText(self.tm_text.output_unclean)
+
+    def apply_change_push_button_clicked(self):
+        start_selection = self.input_line_edit.selectionStart()
+        end_selection = self.input_line_edit.selectionEnd()
+
+        current_red = self.str_int_to_str_hex(self.red_line_edit.text())
+        current_green = self.str_int_to_str_hex(self.green_line_edit.text())
+        current_blue = self.str_int_to_str_hex(self.blue_line_edit.text())
+
+        current_color = f"${current_red}{current_green}{current_blue}"
+        self.tm_text.color(current_color, start_selection, end_selection)
+
+        self.reset_output()
+
+    @staticmethod
+    def str_int_to_str_hex(string):
+        if string.isdigit():
+            num_hex = hex(int(string))
+            str_hex = str(num_hex)[-1]
+
+            return str_hex
 
     def set_color_line_edit(self, color: str):
         match color:
@@ -256,24 +361,43 @@ class Ui_text_editor(object):
         self.set_color_display()
 
     def set_color_display(self):
-        red = int(self.red_line_edit.text()) * 16
-        green = int(self.green_line_edit.text()) * 16
-        blue = int(self.blue_line_edit.text()) * 16
+        red = self.short_hex_to_rgb(self.red_line_edit.text())
+        green = self.short_hex_to_rgb(self.green_line_edit.text())
+        blue = self.short_hex_to_rgb(self.blue_line_edit.text())
 
         self.current_color_label.setStyleSheet(f"background-color: rgb({red}, {green}, {blue});")
+
+    @staticmethod
+    def short_hex_to_rgb(string: str):
+        if string.isdigit():
+            number = int(string)
+
+            if number <= 0:
+                return 0
+
+            elif number >= 15:
+                return 255
+
+            else:
+                return number * 16 + number
+
+        return 0
 
     def set_color_slider(self, color: str):
         match color:
             case "red":
-                num_red: int = int(self.red_line_edit.text())
+                str_red = self.red_line_edit.text()
+                num_red: int = int(str_red) if str_red.isdigit() else 0
                 self.red_slider.setSliderPosition(num_red)
 
             case "green":
-                num_green: int = int(self.green_line_edit.text())
+                str_green = self.green_line_edit.text()
+                num_green: int = int(str_green) if str_green.isdigit() else 0
                 self.green_slider.setSliderPosition(num_green)
 
             case "blue":
-                num_blue: int = int(self.blue_line_edit.text())
+                str_blue = self.blue_line_edit.text()
+                num_blue: int = int(str_blue) if str_blue.isdigit() else 0
                 self.blue_slider.setSliderPosition(num_blue)
 
     @staticmethod

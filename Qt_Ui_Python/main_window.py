@@ -11,6 +11,8 @@
 import sys
 from PyQt5 import QtCore, QtGui, QtWidgets
 from text_edit import Ui_text_editor
+sys.path.append("./Fonts/TruenoUltBlkIt.otf")
+
 
 
 class Ui_MainWindow(object):
@@ -22,7 +24,7 @@ class Ui_MainWindow(object):
         self.horizontalLayout = QtWidgets.QHBoxLayout(self.centralwidget)
         self.horizontalLayout.setObjectName("horizontalLayout")
         self.stackedWidget = QtWidgets.QStackedWidget(self.centralwidget)
-        QtGui.QFontDatabase.addApplicationFont("../Fonts/TruenoUltBlkIt.otf")
+        QtGui.QFontDatabase.addApplicationFont("./Fonts/TruenoUltBlkIt.otf")
         font = QtGui.QFont()
         font.setFamily("Trueno")
         font.setPointSize(30)
@@ -89,25 +91,31 @@ class Ui_MainWindow(object):
         self.statusbar = QtWidgets.QStatusBar(MainWindow)
         self.statusbar.setObjectName("statusbar")
         MainWindow.setStatusBar(self.statusbar)
+        self.text_editor_shortcut = QtWidgets.QAction(MainWindow)
+        self.text_editor_shortcut.setObjectName("text_editor_shortcut")
+
+
+        self.text_editor_push_button.clicked.connect(self.text_editor_push_button_clicked)
+        self.quit_push_button.clicked.connect(self.quit_push_button_clicked)
 
         self.retranslateUi(MainWindow)
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
 
-        self.text_editor_push_button.clicked.connect(lambda: self.text_editor_push_button_clicked())
-        self.quit_push_button.clicked.connect(lambda: self.quit_push_button_clicked())
+
 
     def retranslateUi(self, MainWindow):
         _translate = QtCore.QCoreApplication.translate
         MainWindow.setWindowTitle(_translate("MainWindow", "MainWindow"))
         self.title.setText(_translate("MainWindow", "Trackmania Tools"))
         self.text_editor_push_button.setText(_translate("MainWindow", "Text Editor"))
+        self.text_editor_shortcut.setShortcut(_translate("MainWindow", "Ctrl+S"))
         self.quit_push_button.setText(_translate("MainWindow", "Quit"))
 
     def text_editor_push_button_clicked(self):
         self.stackedWidget.setCurrentIndex(1)
 
     def quit_push_button_clicked(self):
-        sys.exit(app.exec_())
+        pass
 
     @staticmethod
     def _main():
