@@ -246,6 +246,52 @@ class Ui_text_editor(object):
         self.horizontalLayout_6.addWidget(self.blue_line_edit)
         self.verticalLayout_2.addWidget(self.blue_slider_top_frame)
         self.horizontalLayout_3.addWidget(self.color_picker)
+
+        # Format Frame
+        self.format_frame = QtWidgets.QFrame(text_editor)
+        self.format_frame.setFrameShape(QtWidgets.QFrame.StyledPanel)
+        self.format_frame.setFrameShadow(QtWidgets.QFrame.Raised)
+        self.format_frame.setObjectName("format_frame")
+        self.horizontalLayout_7 = QtWidgets.QHBoxLayout(self.format_frame)
+        self.horizontalLayout_7.setObjectName("horizontalLayout_7")
+        spacerItem12 = QtWidgets.QSpacerItem(20, 0, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
+        self.horizontalLayout_7.addItem(spacerItem12)
+        self.left_format_frame = QtWidgets.QFrame(text_editor)
+        self.left_format_frame.setFrameShape(QtWidgets.QFrame.StyledPanel)
+        self.left_format_frame.setFrameShadow(QtWidgets.QFrame.Raised)
+        self.left_format_frame.setObjectName("left_format_frame")
+        self.verticalLayout_4 = QtWidgets.QHBoxLayout(self.left_format_frame)
+        self.verticalLayout_4 = QtWidgets.QHBoxLayout(self.left_format_frame)
+
+        # NOT WORKING PROPERLY
+        self.bold_checkbox = QtWidgets.QCheckBox(self.left_format_frame)
+        self.bold_checkbox.setObjectName("bold_checkbox")
+        self.verticalLayout_4.addWidget(self.bold_checkbox)
+        self.italic_checkbox = QtWidgets.QCheckBox(self.left_format_frame)
+        self.italic_checkbox.setObjectName("italic_checkbox")
+        self.verticalLayout_4.addWidget(self.italic_checkbox)
+        self.wide_checkbox = QtWidgets.QCheckBox(self.left_format_frame)
+        self.wide_checkbox.setObjectName("wide_checkbox")
+        self.verticalLayout_4.addWidget(self.wide_checkbox)
+        self.narrow_checkbox = QtWidgets.QCheckBox(self.left_format_frame)
+        self.narrow_checkbox.setObjectName("narrow_checkbox")
+        self.verticalLayout_4.addWidget(self.narrow_checkbox)
+        self.uppercase_checkbox = QtWidgets.QCheckBox(self.left_format_frame)
+        self.uppercase_checkbox.setObjectName("uppercase_checkbox")
+        self.verticalLayout_4.addWidget(self.uppercase_checkbox)
+
+        self.right_format_frame = QtWidgets.QFrame(text_editor)
+        self.right_format_frame.setFrameShape(QtWidgets.QFrame.StyledPanel)
+        self.right_format_frame.setFrameShadow(QtWidgets.QFrame.Raised)
+        self.right_format_frame.setObjectName("right_format_frame")
+        self.verticalLayout_5 = QtWidgets.QHBoxLayout(self.right_format_frame)
+        self.verticalLayout_5 = QtWidgets.QHBoxLayout(self.right_format_frame)
+
+        self.horizontalLayout_7.addWidget(self.left_format_frame)
+        self.horizontalLayout_7.addWidget(self.right_format_frame)
+        spacerItem13 = QtWidgets.QSpacerItem(20, 0, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
+        self.horizontalLayout_7.addItem(spacerItem13)
+        self.top_layout.addWidget(self.format_frame)
         spacerItem10 = QtWidgets.QSpacerItem(261, 20, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
         self.horizontalLayout_3.addItem(spacerItem10)
         self.top_layout.addWidget(self.color_top_frame)
@@ -267,6 +313,11 @@ class Ui_text_editor(object):
         self.apply_change_push_button.setText(_translate("text_editor", "Apply Change"))
         self.apply_change_action.setShortcut(_translate("text_editor", "Ctrl+S"))
         self.output_label.setText(_translate("text_editor", "< Output test >"))
+        self.bold_checkbox.setText(_translate("text_editor", "Bold"))
+        self.italic_checkbox.setText(_translate("text_editor", "Italic"))
+        self.wide_checkbox.setText(_translate("text_editor", "Wide"))
+        self.narrow_checkbox.setText(_translate("text_editor", "Narrow"))
+        self.uppercase_checkbox.setText(_translate("text_editor", "Uppercase"))
         self.red_line_edit.setText(_translate("text_editor", "0"))
         self.green_line_edit.setText(_translate("text_editor", "0"))
         self.blue_line_edit.setText(_translate("text_editor", "0"))
@@ -414,8 +465,10 @@ class Ui_text_editor(object):
 if __name__ == '__main__':
     Ui_text_editor._main()
 
-# TODO: Add Button to apply current change
 # TODO: Give Preview
-# TODO: Give correct output
+# TODO: Give clean output
+# TODO: Apply Format actions / buttons
 
-# TODO: Stupid Formating....
+# Bugs:
+# Erase many character with selected text doesn't register
+# Crash if there is no character in the input_line

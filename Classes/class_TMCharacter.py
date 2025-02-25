@@ -18,8 +18,9 @@ class TMCharacter:
         self.uppercase: TMStyleParam = TMStyleParam(p_uppercase, "$t")
         self.shadow: TMStyleParam = TMStyleParam(p_shadow, "$s")
         self.link: TMStyleParam = TMStyleParam(p_link, "$l")
+
         self.color = p_color
-        self.rep = p_rep
+        self.rep = p_rep if p_rep != "$" else "$$"
         self.output = self.character_output()
 
     def character_output(self):
